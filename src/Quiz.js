@@ -12,6 +12,7 @@ class Quiz extends Component {
 		};
 		
 		this.showNextQuestion = this.showNextQuestion.bind(this);
+		this.handleResetClick = this.handleResetClick.bind(this);
 	}
 	
 	showNextQuestion() {
@@ -20,12 +21,16 @@ class Quiz extends Component {
 		});
 	}
 	
+	handleResetClick() {
+		this.setState({quiz_position: 1});
+	}
+	
 	render() {
 		const isQuizEnd = this.state.quiz_position-1 === quizData.quiz_questions.length
 		return (
 			<React.Fragment>
 				{isQuizEnd ?
-					<QuizEnd /> :
+					<QuizEnd resetClickHandler={this.handleResetClick}/> :
 					<QuizQuestion showNextQuestionHandler={this.showNextQuestion} quiz_question={quizData.quiz_questions[this.state.quiz_position-1]} />}
 			</React.Fragment>
 		);
